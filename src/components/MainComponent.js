@@ -31,6 +31,16 @@ class Main extends Component {
         />
       );
     }
+
+    const DishWithId = ({match}) => {
+      return(
+        /* Convert url's disId to a base 10 integer value */
+        <DishDetail dish={this.state.dishes.filter(dish => dish.id === parseInt(match.params.dishId, 10))[0]}
+          comments={this.state.comments.filter(comment => comment.dishId === parseInt(match.params.dishId, 10))}
+          />
+        );
+    }
+
     return (
       <div>
         <Header />
@@ -39,6 +49,8 @@ class Main extends Component {
           <Route path="/home" component={HomePage} />
           {/* Passing props to the componenet in <Route> */}
           <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} /> } />
+          {/* dishId is the key */}
+          <Route path="/menu/:dishId" component={DishWithId} />
           <Route exact path="/contactus" component={Contact} />
           <Redirect to="/home" /> {/* Anyythin doesn't match other Routers */}
         </Switch>
