@@ -27,7 +27,7 @@ class Header extends Component {
                         {/* Hamburger menu icon and functionality */}
                         <NavbarToggler onClick={this.toggleNav} />
                         <NavbarBrand className="mr-auto" href="/">
-                            <img src="assets/images/logo.png" height="167" width="123" alt="Ristorante Fusion"></img>
+                            <img src="assets/images/logo.png" height="30" width="41" alt="Ristorante Fusion"></img>
                         </NavbarBrand>
                         <Nav navbar>
                         {/* For responsive design */}
