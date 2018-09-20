@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col, FormFeedback } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-class  Contact extends Component {
+class Contact extends Component {
     constructor(props){
         super(props)
 
@@ -13,7 +13,14 @@ class  Contact extends Component {
             email: '',
             isAgree: false,
             contactType: 'Tel',
-            message: ''
+            message: '',
+            /* Particular field has been touched or not */
+            touched: {
+                firstname: false,
+                lastname: false,
+                telnum: false,
+                email: false
+            }
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -27,6 +34,7 @@ class  Contact extends Component {
         const name = target.name;
 
         this.setState({
+            // ES6 computed property names
             [name]: value
         })
     }
@@ -34,8 +42,15 @@ class  Contact extends Component {
     handleSubmit(event) {
         console.log("Current State is: " + JSON.stringify(this.state));
         event.preventDefault();
-
     }
+
+    // Form Validation
+    handleBlur = (field) => (e) => {
+        this.setState({
+            touched: { ...this.state.touched, [field]: true}
+        })
+    }
+
     render() {
     return (
         <div className="container">
