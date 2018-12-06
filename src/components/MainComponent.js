@@ -8,6 +8,7 @@ import About from './About';
 import Contact from './Contact';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import  { addComment } from '../redux/ActionCreators';
 
 /* will map the Redux Store's state into props that will become available to the component */
 const mapStateToProps = state => {
@@ -20,6 +21,10 @@ const mapStateToProps = state => {
     // now states are available as props
 }
 
+const mapDispatchToProps = dispatch => ({
+  // The object that is returned from addComment action creator will be given as a parameter to dispatch
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+})
 
 class Main extends Component {
 
@@ -39,6 +44,7 @@ class Main extends Component {
         /* Convert url's disId to a base 10 integer value */
         <DishDetail dish={this.props.dishes.filter(dish => dish.id === parseInt(match.params.dishId, 10))[0]}
           comments={this.props.comments.filter(comment => comment.dishId === parseInt(match.params.dishId, 10))}
+          addComment={this.props.addComment}
           />
         );
     }
@@ -65,4 +71,4 @@ class Main extends Component {
 
 // Connecting the component to the Redux Store
 // without withRouter it doesn't work
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
