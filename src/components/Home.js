@@ -1,6 +1,18 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap'
-function RenderCard({item}) {
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+import { Loading } from './Loading'
+
+function RenderCard({item, isLoading, error}) {
+    if (isLoading) {
+        return(
+            <Loading />
+        )
+    } else if (error) {
+        return(
+            <h5>{error}</h5>
+        )
+    }
+    else {
     return(
         /* This structure can be used for dish, leader and promotion */
         <Card>
@@ -14,6 +26,7 @@ function RenderCard({item}) {
         </Card>
 
     );
+ }
 }
 
 function Home(props){
@@ -21,7 +34,9 @@ function Home(props){
         <div className="container">
            <div className="row  align-items-start">
                 <div className="col-12 col-md m-1">
-                    <RenderCard item={props.dish} />
+                    <RenderCard item={props.dish} 
+                        isLoading={props.dishesLoading}
+                        error={props.dishes.error} />
                 </div>
                 <div className="col-12 col-md m-1">
                     <RenderCard item={props.promotion} />
