@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
-import { Loading } from './Loading'
+import { Loading } from './Loading';
+import { baseURL } from './shared/baseURL';
 
 function RenderCard({item, isLoading, error}) {
     if (isLoading) {
@@ -16,7 +17,7 @@ function RenderCard({item, isLoading, error}) {
     return(
         /* This structure can be used for dish, leader and promotion */
         <Card>
-            <CardImg src={item.image} alt={item.name} />
+            <CardImg src={baseURL + item.image} alt={item.name} />
             <CardBody>
                 <CardTitle>{item.name}</CardTitle>
                 {/* item.designation exists only for the leader */}
@@ -39,7 +40,9 @@ function Home(props){
                         error={props.error} />
                 </div>
                 <div className="col-12 col-md m-1">
-                    <RenderCard item={props.promotion} />
+                    <RenderCard item={props.promotion} 
+                     isLoading={props.promosLoading}
+                     error={props.error}/>
                 </div>
                 <div className="col-12 col-md m-1">
                     <RenderCard item={props.leader} />
