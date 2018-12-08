@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { DISHES } from '../shared/dishes';
+import { baseURL } from '../shared/baseURL';
 
 // addComment Action Creator
 export const addComment = (dishId, rating, author, comment) => ({
@@ -12,12 +13,20 @@ export const addComment = (dishId, rating, author, comment) => ({
     }
 });
 
+// Thunk
 export const fetchDishes = () => (dispatch) => {
     dispatch(dishesLoading(true));
+    // communicating the server
+    return fetch(baseURL + 'dishes')
+        .then(response => response.json())
+        .then(dishes => dispatch(addDishes(dishes)));
+}
 
-    setTimeout(() => {
-        dispatch(addDishes(DISHES));
-    },2000);
+export const fetchComments = () => (dispatch) => {
+    // communicating the server
+    return fetch(baseURL + 'comments')
+        .then(response => response.json())
+        .then(comments => dispatch(addCommnets(comments)));
 }
 
 // return action object
@@ -33,5 +42,40 @@ export const dishesFailed = (error) => ({
 
 export const addDishes = (dishes) => ({
     type: ActionTypes.ADD_DISHES,
+    payload: dishes
+});
+
+export const commentsFailed = (error) => ({
+    type: ActionTypes.COMMENTS_FAILED,
+    payload: error
+
+});
+
+export const addComments = (comments) => ({
+    type: ActionTypes.ADD_COMMENTS,
+    payload: comments
+});
+
+export const fetchPromos = () => (dispatch) => {
+    dispatch(promosLoading(true))
+    // communicating the server
+    return fetch(baseURL + 'promotions')
+        .then(response => response.json())
+        .then(promos => dispatch(addPromos(promos)));
+}
+
+// return action object
+export const promosLoading = () => ({
+    type: ActionTypes.PROMOS_LOADING
+});
+
+export const promosFailed = (error) => ({
+    type: ActionTypes.PROMOS_FAILED,
+    payload: error
+
+});
+
+export const addPromos = (promos) => ({
+    type: ActionTypes.ADD_PROMOS,
     payload: dishes
 });
