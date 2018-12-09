@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 import { Loading } from './Loading';
 import { baseURL } from '../shared/baseURL';
+import { FadeTransform } from 'react-animation-components';
 
 function RenderCard({item, isLoading, errMess}) {
     if (isLoading) {
@@ -15,7 +16,11 @@ function RenderCard({item, isLoading, errMess}) {
     }
     else if(item) {
     return(
-        /* This structure can be used for dish, leader and promotion */
+        <FadeTransform in
+            transformProps={{
+                exitTransform: 'scale(0.5) translateY(-50%)'
+            }}>
+         {/* This structure can be used for dish, leader and promotion  */}
         <Card>
             <CardImg src={baseURL + item.image} alt={item.name} />
             <CardBody>
@@ -25,6 +30,7 @@ function RenderCard({item, isLoading, errMess}) {
                 <CardText>{item.description}</CardText>
             </CardBody>
         </Card>
+        </FadeTransform>
 
     );
  }
