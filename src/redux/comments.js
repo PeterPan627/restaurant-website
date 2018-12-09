@@ -13,8 +13,9 @@ export const Comments = (state = {
 
         case ActionTypes.ADD_COMMENT:
             var comment = action.payload;
-            comment.id = state.comments.length;
-            comment.date = new Date().toISOString();
+            // id and date will be created automatically by the server
+            // comment.id = state.comments.length;
+            //comment.date = new Date().toISOString();
             //Test:
             console.log("Comment:", comment)
             // Does NOT mutate the state
