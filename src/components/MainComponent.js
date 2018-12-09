@@ -10,6 +10,7 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import  { postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 /* will map the Redux Store's state into props that will become available to the component */
 const mapStateToProps = state => {
@@ -70,17 +71,21 @@ class Main extends Component {
     return (
       <div>
         <Header />
-        <Switch>
-          {/* Simply call the component that doesn't need any props */}
-          <Route path="/home" component={HomePage} />
-          {/* Passing props to the componenet in <Route> */}
-          <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} /> } />
-          {/* dishId is the key */}
-          <Route path="/menu/:dishId" component={DishWithId} />
-          <Route exact path="/contactus" component={() => <Contact setFeedbackForm={this.props.resetFeedbackForm} />} />
-          <Route exact path="/aboutus" component={() => <About leaders ={this.props.leaders} />} />
-          <Redirect to="/home" /> {/* Anyythin doesn't match other Routers */}
-        </Switch>
+        <TransitionGroup>
+          <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
+            <Switch>
+              {/* Simply call the component that doesn't need any props */}
+              <Route path="/home" component={HomePage} />
+              {/* Passing props to the componenet in <Route> */}
+              <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} /> } />
+              {/* dishId is the key */}
+              <Route path="/menu/:dishId" component={DishWithId} />
+              <Route exact path="/contactus" component={() => <Contact setFeedbackForm={this.props.resetFeedbackForm} />} />
+              <Route exact path="/aboutus" component={() => <About leaders ={this.props.leaders} />} />
+              <Redirect to="/home" /> {/* Anyythin doesn't match other Routers */}
+            </Switch>
+          </CSSTransition>          
+        </TransitionGroup>
         <Footer />
       </div>
     );
