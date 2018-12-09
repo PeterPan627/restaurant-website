@@ -18,15 +18,45 @@ export const fetchDishes = () => (dispatch) => {
     dispatch(dishesLoading(true));
     // communicating the server
     return fetch(baseURL + 'dishes')
+        .then(response => {
+           if(response.ok) {
+               //response will be available in the next .then
+               return response;
+           }
+           else {
+               var error = new Error('Error ' + response.status + ': ' + response.statusText);
+               error.response = response; //optional
+               throw error;
+           }
+        }, error => { // Even the server doesn't respond
+               var  errmess = new Error(error.message);
+               throw errmess;
+        })
         .then(response => response.json())
-        .then(dishes => dispatch(addDishes(dishes)));
+        .then(dishes => dispatch(addDishes(dishes)))
+        .catch(error => dispatch(dishesFailed(error.message)))
 }
 
 export const fetchComments = () => (dispatch) => {
     // communicating the server
     return fetch(baseURL + 'comments')
+        .then(response => {
+            if(response.ok) {
+                //response will be available in the next .then
+                return response;
+            }
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response; //optional
+                throw error;
+            }
+        }, error => { // Even the server doesn't respond
+                var  errmess = new Error(error.message);
+                throw errmess;
+        })
         .then(response => response.json())
-        .then(comments => dispatch(addComments(comments)));
+        .then(comments => dispatch(addComments(comments)))
+        .catch(error => dispatch(commentsFailed(error.message)));
 }
 
 // return action object
@@ -34,9 +64,9 @@ export const dishesLoading = () => ({
     type: ActionTypes.DISHES_LOADING
 });
 
-export const dishesFailed = (error) => ({
+export const dishesFailed = (errmess) => ({
     type: ActionTypes.DISHES_FAILED,
-    payload: error
+    payload: errmess
 
 });
 
@@ -45,9 +75,9 @@ export const addDishes = (dishes) => ({
     payload: dishes
 });
 
-export const commentsFailed = (error) => ({
+export const commentsFailed = (errmess) => ({
     type: ActionTypes.COMMENTS_FAILED,
-    payload: error
+    payload: errmess
 
 });
 
@@ -60,8 +90,24 @@ export const fetchPromos = () => (dispatch) => {
     dispatch(promosLoading(true))
     // communicating the server
     return fetch(baseURL + 'promotions')
+    .then(response => {
+        if(response.ok) {
+            //response will be available in the next .then
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response; //optional
+            throw error;
+        }
+     }, error => { // Even the server doesn't respond
+            var  errmess = new Error(error.message);
+            throw errmess;
+     })
         .then(response => response.json())
-        .then(promos => dispatch(addPromos(promos)));
+        .then(promos => dispatch(addPromos(promos)))
+        .catch(error => dispatch(promosFailed(error.message)))
+
 }
 
 // return action object
@@ -69,9 +115,9 @@ export const promosLoading = () => ({
     type: ActionTypes.PROMOS_LOADING
 });
 
-export const promosFailed = (error) => ({
+export const promosFailed = (errmess) => ({
     type: ActionTypes.PROMOS_FAILED,
-    payload: error
+    payload: errmess
 
 });
 
