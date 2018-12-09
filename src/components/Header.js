@@ -30,6 +30,7 @@ class Header extends Component {
 
     handleLogin(event) {
         this.toggleModal();
+        // I get values direclty from the DOM
         alert("Username: " + this.username.value + "Password: " + this.password.value + "Remember: " + this.remember.checked);
         event.preventDefault();
 

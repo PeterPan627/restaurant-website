@@ -7,7 +7,7 @@ export const Dishes = (state = {
     }, action) => {
     switch(action.type) {
         case ActionTypes.ADD_DISHES:
-            return {...state, isLoading: dalse, error: null, dishes: action.payload}
+            return {...state, isLoading: false, error: null, dishes: action.payload}
         
             case ActionTypes.DISHES_LOADING:
             // take the state and create a new object, than modify the copied one

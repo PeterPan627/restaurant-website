@@ -4,7 +4,7 @@ Label, Modal, ModalHeader, ModalBody} from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import { Loading } from './Loading';
-import { baseURL } from './shared/baseURL';
+import { baseURL } from '../shared/baseURL';
 
 
 const required = (val) => val && val.length;

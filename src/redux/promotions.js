@@ -1,4 +1,5 @@
-import { PROMOTIONS } from '../shared/promotions';
+import * as ActionTypes from './ActionTypes';
+
 
 export const Promotions = (state = {
         isLoading: true,
@@ -7,7 +8,7 @@ export const Promotions = (state = {
     }, action) => {
     switch(action.type) {
         case ActionTypes.ADD_PROMOS:
-            return {...state, isLoading: false, error: null, promos: action.payload}
+            return {...state, isLoading: false, error: null, promotions: action.payload}
     
         case ActionTypes.PROMOS_LOADING:
             // take the state and create a new object, than modify the copied one

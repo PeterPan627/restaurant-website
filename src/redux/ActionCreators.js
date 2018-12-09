@@ -26,7 +26,7 @@ export const fetchComments = () => (dispatch) => {
     // communicating the server
     return fetch(baseURL + 'comments')
         .then(response => response.json())
-        .then(comments => dispatch(addCommnets(comments)));
+        .then(comments => dispatch(addComments(comments)));
 }
 
 // return action object
@@ -77,5 +77,5 @@ export const promosFailed = (error) => ({
 
 export const addPromos = (promos) => ({
     type: ActionTypes.ADD_PROMOS,
-    payload: dishes
+    payload: promos
 });

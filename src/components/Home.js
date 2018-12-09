@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 import { Loading } from './Loading';
-import { baseURL } from './shared/baseURL';
+import { baseURL } from '../shared/baseURL';
 
 function RenderCard({item, isLoading, error}) {
     if (isLoading) {
@@ -13,7 +13,7 @@ function RenderCard({item, isLoading, error}) {
             <h5>{error}</h5>
         )
     }
-    else {
+    else if(item) {
     return(
         /* This structure can be used for dish, leader and promotion */
         <Card>
@@ -27,6 +27,8 @@ function RenderCard({item, isLoading, error}) {
         </Card>
 
     );
+ } else {
+    return <div>sadasd</div>
  }
 }
 
