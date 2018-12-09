@@ -3,19 +3,19 @@ import * as ActionTypes from './ActionTypes';
 
 export const Promotions = (state = {
         isLoading: true,
-        error: null,
+        errMess: null,
         promotions: []
     }, action) => {
     switch(action.type) {
         case ActionTypes.ADD_PROMOS:
-            return {...state, isLoading: false, error: null, promotions: action.payload}
+            return {...state, isLoading: false, errMess: null, promotions: action.payload}
     
         case ActionTypes.PROMOS_LOADING:
             // take the state and create a new object, than modify the copied one
-            return {...state, isLoading: true, error: null, promos: []}
+            return {...state, isLoading: true, errMess: null, promos: []}
 
         case ActionTypes.PROMOS_FAILED:
-            return {...state, isLoading: false, error: action.payload, promotions: []}
+            return {...state, isLoading: false, errMess: action.payload, promotions: []}
 
         default:
             return state;

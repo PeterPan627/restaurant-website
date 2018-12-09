@@ -3,14 +3,14 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reac
 import { Loading } from './Loading';
 import { baseURL } from '../shared/baseURL';
 
-function RenderCard({item, isLoading, error}) {
+function RenderCard({item, isLoading, errMess}) {
     if (isLoading) {
         return(
             <Loading />
         )
-    } else if (error) {
+    } else if (errMess) {
         return(
-            <h5>{error}</h5>
+            <h5>{errMess}</h5>
         )
     }
     else if(item) {
@@ -27,8 +27,9 @@ function RenderCard({item, isLoading, error}) {
         </Card>
 
     );
- } else {
-    return <div>sadasd</div>
+ }
+ else {
+    return <div></div>
  }
 }
 
@@ -39,12 +40,12 @@ function Home(props){
                 <div className="col-12 col-md m-1">
                     <RenderCard item={props.dish} 
                         isLoading={props.dishesLoading}
-                        error={props.error} />
+                        errMess={props.dishErrMess} />
                 </div>
                 <div className="col-12 col-md m-1">
                     <RenderCard item={props.promotion} 
                      isLoading={props.promosLoading}
-                     error={props.error}/>
+                     errMess={props.promoErrMess}/>
                 </div>
                 <div className="col-12 col-md m-1">
                     <RenderCard item={props.leader} />

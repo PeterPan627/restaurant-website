@@ -45,10 +45,10 @@ class Main extends Component {
       return(
         <Home dish={this.props.dishes.dishes.filter(dish => dish.featured)[0]} 
               dishesLoading={this.props.dishes.isLoading}
-              dishesError={this.props.dishes.error}
+              dishErrMess={this.props.dishes.errMess}
               promotion={this.props.promotions.promotions.filter(promotion => promotion.featured)[0]}
               promosLoading={this.props.promotions.isLoading}
-              promosError={this.props.promotions.error}
+              promoErrMess={this.props.promotions.errMess}
               leader={this.props.leaders.filter(leader => leader.featured)[0]}
         />
       );
@@ -59,9 +59,9 @@ class Main extends Component {
         /* Convert url's disId to a base 10 integer value */
         <DishDetail dish={this.props.dishes.dishes.filter(dish => dish.id === parseInt(match.params.dishId, 10))[0]}
           isLoading={this.props.dishes.isLoading}
-          error={this.props.dishes.error}
+          errMess={this.props.dishes.errMess}
           comments={this.props.comments.comments.filter(comment => comment.dishId === parseInt(match.params.dishId, 10))}
-          commentsError={this.props.comments.error}
+          commentsErrMess={this.props.comments.errMess}
           addComment={this.props.addComment}
           />
         );
