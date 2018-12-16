@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Button, Row, Label, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, Form, Errors, actions } from 'react-redux-form'
+import { Control, Form, Errors } from 'react-redux-form'
 
 /* Length of values in the input box */
 const required = (val) => val && val.length;
