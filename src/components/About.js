@@ -2,8 +2,7 @@ import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './Loading';
-
-
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 function RenderLeaders({ leader, isLoading, errMess }) {
     if (isLoading) {
@@ -38,11 +37,19 @@ function RenderLeaders({ leader, isLoading, errMess }) {
 function About(props) {
     const myLeaders = props.leaders.leaders.map((leader) => {
         return (
-           <RenderLeaders 
-                leader={leader} 
-                isLoading={props.LeadersLoading}
-                errMess={props.errMess}
-                />
+            <div>
+            <ul className="list-unstyled">
+            <Stagger in>
+                <Fade out>
+                <RenderLeaders 
+                        leader={leader} 
+                        isLoading={props.LeadersLoading}
+                        errMess={props.errMess}
+                        />
+            </Fade>
+            </Stagger>
+            </ul>
+            </div>
         );
     });
 

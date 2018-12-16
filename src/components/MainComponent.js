@@ -8,7 +8,7 @@ import About from './About';
 import Contact from './Contact';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import  { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+import  { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -27,6 +27,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   // The object that is returned from addComment action creator will be given as a parameter to dispatch
   postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
+  postFeedback: (feedbackId, firstName, lastName, telnum, email, agree, message) => 
+                dispatch(postFeedback(feedbackId, firstName, lastName, telnum, email, agree, message)),
   fetchDishes: () => {dispatch(fetchDishes())},
   fetchComments: () => {dispatch(fetchComments())},
   fetchPromos: () => {dispatch(fetchPromos())},
@@ -84,7 +86,8 @@ class Main extends Component {
               <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} /> } />
               {/* dishId is the key */}
               <Route path="/menu/:dishId" component={DishWithId} />
-              <Route exact path="/contactus" component={() => <Contact setFeedbackForm={this.props.resetFeedbackForm} />} />
+              <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} 
+                            postFeedback={this.props.postFeedback} />} />
               <Route exact path="/aboutus" component={() => <About leaders ={this.props.leaders} />} />
               <Redirect to="/home" /> {/* Anyythin doesn't match other Routers */}
             </Switch>
